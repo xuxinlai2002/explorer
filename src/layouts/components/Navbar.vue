@@ -118,7 +118,7 @@
         </b-dropdown-item>
          <b-dropdown-item @click="connectKeplr()">
           <feather-icon
-            icon="BookOpenIcon"
+            icon="KeyIcon"
             size="16"
           />
           <span class="align-middle ml-50">Connect to Keplr</span>
@@ -205,6 +205,8 @@ export default {
       variant: 'success',
       tips: 'Synced',
       index: 0,
+      chainId: '',
+      api: '',
     }
   },
   computed: {
@@ -239,10 +241,10 @@ export default {
   methods: {
     async connectKeplr() {
       await window.keplr.experimentalSuggestChain({
-        chainId: 'uptick_9686294337915-1',
+        chainId: this.chainId,
         chainName: 'uptick',
         rpc: 'http://47.89.185.2:26657/',
-        rest: 'http://47.89.185.2:1318/',
+        rest: this.api,
         stakeCurrency: {
           coinDenom: 'uptick',
           coinMinimalDenom: 'auptick',
@@ -287,7 +289,9 @@ export default {
       const s = localStorage.getItem(`${conf.chain_name}-api-index`) || 0
       this.index = Number(s)
       this.$store.commit('setHeight', 0)
+      this.api = conf.api
       this.$http.getLatestBlock().then(block => {
+        this.chainId = block.block.header.chain_id
         this.$store.commit('setHeight', Number(block.block.header.height))
         if (timeIn(block.block.header.time, 1, 'm')) {
           this.variant = 'danger'

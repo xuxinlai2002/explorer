@@ -80,27 +80,27 @@ function processMenu() {
       icon: 'ChromeIcon',
     })
   } else {
-    chainMenus.push({
-      title: 'Testnet Explorer',
-      href: 'http://testnet.ping.pub',
-      icon: 'LifeBuoyIcon',
-    })
+    // chainMenus.push({
+    //   title: 'Testnet Explorer',
+    //   href: 'http://testnet.ping.pub',
+    //   icon: 'LifeBuoyIcon',
+    // })
   }
   chainMenus.push({
     title: 'Discord',
-    href: 'https://discord.gg/CmjYVSr6GW',
+    href: 'https://discord.gg/uH9Cf5a5',
     icon: 'EyeIcon',
   })
-  chainMenus.push({
-    title: 'Twitter',
-    href: 'https://twitter.com/ping_pub',
-    icon: 'TwitterIcon',
-  })
-  chainMenus.push({
-    title: 'Github',
-    href: 'https://github.com/ping-pub/explorer',
-    icon: 'GithubIcon',
-  })
+  // chainMenus.push({
+  //   title: 'Twitter',
+  //   href: 'https://twitter.com/ping_pub',
+  //   icon: 'TwitterIcon',
+  // })
+  // chainMenus.push({
+  //   title: 'Github',
+  //   href: 'https://github.com/ping-pub/explorer',
+  //   icon: 'GithubIcon',
+  // })
 
   return chainMenus
 }
