@@ -86,11 +86,11 @@ function processMenu() {
     //   icon: 'LifeBuoyIcon',
     // })
   }
-  chainMenus.push({
-    title: 'Discord',
-    href: 'https://discord.gg/uH9Cf5a5',
-    icon: 'EyeIcon',
-  })
+  // chainMenus.push({
+  //   title: 'Discord',
+  //   href: 'https://discord.gg/uH9Cf5a5',
+  //   icon: 'EyeIcon',
+  // })
   // chainMenus.push({
   //   title: 'Twitter',
   //   href: 'https://twitter.com/ping_pub',
