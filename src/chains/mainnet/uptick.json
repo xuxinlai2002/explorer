@@ -1,6 +1,6 @@
 {
     "chain_name": "uptick-network-testnet",
-    "api": "http://peer1.testnet.uptick.network:1317",
+    "api": "https://peer1.testnet.uptick.network:1318",
     "sdk_version": "0.44.5",
     "coin_type": "60",
     "min_tx_fee": "40000",
