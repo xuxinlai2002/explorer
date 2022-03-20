@@ -2,6 +2,7 @@
 
 import { SigningStargateClient } from '@cosmjs/stargate'
 // import { MsgTransfer } from './msg-transfer'
+import { cosmos } from '@keplr-wallet/cosmos'
 import { AminoTypes } from './aminotypes'
 import { MsgSwapExactAmountIn } from '../msg'
 
@@ -50,7 +51,35 @@ export default class PingWalletClient extends SigningStargateClient {
     const signedTxBodyBytes = this.registry.encode(signedTxBodyEncodeObject)
     const signedGasLimit = math_1.Int53.fromString(signed.fee.gas).toNumber()
     const signedSequence = math_1.Int53.fromString(signed.sequence).toNumber()
-    const signedAuthInfoBytes = proto_signing_1.makeAuthInfoBytes([{ pubkey, sequence: signedSequence }], signed.fee.amount, signedGasLimit, signMode)
+    let signedAuthInfoBytes = proto_signing_1.makeAuthInfoBytes([{ pubkey, sequence: signedSequence }], signed.fee.amount, signedGasLimit, signMode)
+    accountFromSigner.algo = 'ethsecp256k1'
+    if (accountFromSigner.algo === 'ethsecp256k1') {
+      signedAuthInfoBytes = cosmos.tx.v1beta1.AuthInfo.encode({
+        signerInfos: [
+          {
+            publicKey: {
+              type_url: '/ethermint.crypto.v1.ethsecp256k1.PubKey',
+              value: cosmos.crypto.secp256k1.PubKey.encode({
+                key: Buffer.from(
+                  signature.pub_key.value,
+                  'base64',
+                ),
+              }).finish(),
+            },
+            modeInfo: {
+              single: {
+                mode: signMode,
+              },
+            },
+            sequence: signedSequence,
+          },
+        ],
+        fee: {
+          amount: signed.fee.amount,
+          gasLimit: signedGasLimit,
+        },
+      }).finish()
+    }
     return tx_5.TxRaw.fromPartial({
       bodyBytes: signedTxBodyBytes,
       authInfoBytes: signedAuthInfoBytes,
