@@ -20,6 +20,7 @@
     "@cosmjs/stargate": "0.26.5",
     "@cosmostation/cosmosjs": "^0.10.6",
     "@intlify/vue-i18n-loader": "^2.1.2",
+    "@keplr-wallet/cosmos": "^0.9.16",
     "@ledgerhq/hw-app-cosmos": "^6.3.0",
     "@ledgerhq/hw-transport-web-ble": "^6.3.0",
     "@ledgerhq/hw-transport-webusb": "^6.3.0",
