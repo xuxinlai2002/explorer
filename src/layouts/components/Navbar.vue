@@ -277,6 +277,8 @@ export default {
           average: 0.025,
           high: 0.04,
         },
+        features: ['ibc-transfer', 'ibc-go', 'eth-address-gen', 'eth-key-sign'],
+        beta: true,
       })
     },
     change(v) {
