@@ -242,7 +242,7 @@ export default {
     async connectKeplr() {
       await window.keplr.experimentalSuggestChain({
         chainId: this.chainId,
-        chainName: 'Uptick Testnet',
+        chainName: 'Uptick Testnet2',
         rpc: 'https://peer1.testnet.uptick.network:36657',
         rest: this.api,
         stakeCurrency: {
@@ -273,9 +273,9 @@ export default {
         }],
         coinType: 60,
         gasPriceStep: {
-          low: 0.01,
-          average: 0.025,
-          high: 0.04,
+          low: 1 * 100000000000,
+          average: 2 * 100000000000,
+          high: 4 * 100000000000,
         },
         features: ['ibc-transfer', 'ibc-go', 'eth-address-gen', 'eth-key-sign'],
         beta: true,
