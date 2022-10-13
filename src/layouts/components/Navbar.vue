@@ -48,17 +48,16 @@
             /></b-link>
         </b-media-aside>
         <b-media-body class="my-auto">
-          <h6 class="mb-0 text-uppercase">
-            {{ selected_chain.chain_name }}
+          <h6 class="mb-0 ">
+            <span class="text-uppercase">{{ chainid || selected_chain.chain_name }}</span>
           </h6>
           <small id="data-provider">
-            {{ currentApi }} ({{ selected_chain.sdk_version || '-' }})
             <b-dropdown
               class="ml-0"
               variant="flat-primary"
               no-caret
               toggle-class="p-0"
-              right
+              left
               sm
             >
               <template #button-content>
@@ -76,6 +75,7 @@
                 {{ item }}
               </b-dropdown-item>
             </b-dropdown>
+            {{ currentApi }} ({{ selected_chain.sdk_version || '-' }})
           </small>
         </b-media-body>
       </b-media>
@@ -107,15 +107,38 @@
         </template>
 
         <b-dropdown-item
-          :to="{ name: 'portfolio' }"
-          class="d-none"
+          v-for="(item,k) in accounts"
+          :key="k"
+          :disabled="!item.address"
+          @click="updateDefaultWallet(item.wallet)"
         >
+          <div class="d-flex flex-column">
+            <div class="d-flex justify-content-between">
+              <span class="font-weight-bolder">{{ item.wallet }}
+                <b-avatar
+                  v-if="item.wallet===walletName"
+                  variant="success"
+                  size="sm"
+                >
+                  <feather-icon icon="CheckIcon" />
+                </b-avatar>
+              </span>
+              <b-link :to="`/${selected_chain.chain_name}/account/${item.address.addr}`">
+                <feather-icon icon="ArrowRightIcon" />
+              </b-link>
+            </div>
+            <small>{{ item.address ? formatAddr(item.address.addr) : `Not available on ${selected_chain.chain_name}` }}</small>
+          </div>
+        </b-dropdown-item>
+        <b-dropdown-divider />
+        <b-dropdown-item to="/wallet/import">
           <feather-icon
-            icon="PieChartIcon"
+            icon="PlusIcon"
             size="16"
           />
-          <span class="align-middle ml-50">Portofolio</span>
+          <span class="align-middle ml-50">Import Address</span>
         </b-dropdown-item>
+        <b-dropdown-divider />
          <b-dropdown-item @click="connectKeplr()">
           <feather-icon
             icon="KeyIcon"
@@ -123,6 +146,7 @@
           />
           <span class="align-middle ml-50">Connect to Keplr</span>
         </b-dropdown-item>
+
         <b-dropdown-item :to="{ name: 'accounts' }">
           <feather-icon
             icon="KeyIcon"
@@ -146,6 +170,15 @@
           />
           <span class="align-middle ml-50">My Validators</span>
         </b-dropdown-item>
+
+        <b-dropdown-item :to="`/wallet/votes`">
+          <feather-icon
+            icon="PocketIcon"
+            size="16"
+          />
+          <span class="align-middle ml-50">My Votes</span>
+        </b-dropdown-item>
+
         <b-dropdown-item :to="`/wallet/transactions`">
           <feather-icon
             icon="LayersIcon"
@@ -161,7 +194,7 @@
 <script>
 import {
   BLink, BNavbarNav, BMedia, BMediaAside, BAvatar, BMediaBody, VBTooltip, BButton,
-  BDropdown, BDropdownItem,
+  BDropdown, BDropdownItem, BDropdownDivider,
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
 import DarkToggler from '@core/layouts/components/app-navbar/components/DarkToggler.vue'
@@ -182,6 +215,7 @@ export default {
     BButton,
     BDropdown,
     BDropdownItem,
+    BDropdownDivider,
 
     // Navbar Components
     DarkToggler,
@@ -205,7 +239,7 @@ export default {
       variant: 'success',
       tips: 'Synced',
       index: 0,
-      chainId: '',
+      chainid: '',
       api: '',
     }
   },
@@ -231,18 +265,28 @@ export default {
       }
       return [conf.api]
     },
-  },
-  mounted() {
-    const accounts = Object.keys(getLocalAccounts() || {})
-    if (!this.$store.state.chains.defaultWallet && accounts.length > 0) {
-      this.$store.commit('setDefaultWallet', accounts[0])
-    }
+    accounts() {
+      let accounts = getLocalAccounts() || {}
+      accounts = Object.entries(accounts)
+        .map(v => ({ wallet: v[0], address: v[1].address.find(x => x.chain === this.selected_chain.chain_name) }))
+        .filter(v => v.address)
+
+      // accounts > 0 and wallet not setted, pick the first one as default
+      if (accounts.length > 0 && accounts.findIndex(x => x.wallet === this.walletName) < 0) {
+        this.updateDefaultWallet(accounts[0].wallet)
+      }
+
+      if (accounts.findIndex(x => x.wallet === this.walletName) < 0 && this.walletName !== 'Wallet') {
+        this.updateDefaultWallet(null)
+      }
+      return accounts
+    },
   },
   methods: {
     async connectKeplr() {
       await window.keplr.experimentalSuggestChain({
-        chainId: this.chainId,
-        chainName: 'Uptick Testnet',
+        chainId: 'uptick_7000-1',
+        chainName: 'Uptick Testnet2',
         rpc: 'https://peer1.testnet.uptick.network:36657',
         rest: this.api,
         stakeCurrency: {
@@ -273,18 +317,25 @@ export default {
         }],
         coinType: 60,
         gasPriceStep: {
-          low: 0.01,
-          average: 0.025,
-          high: 0.04,
+          low: 1 * 100000000000,
+          average: 2 * 100000000000,
+          high: 4 * 100000000000,
         },
         features: ['ibc-transfer', 'ibc-go', 'eth-address-gen', 'eth-key-sign'],
         beta: true,
       })
     },
+    formatAddr(v) {
+      return v.substring(0, 10).concat('...', v.substring(v.length - 10))
+    },
+    updateDefaultWallet(v) {
+      this.$store.commit('setDefaultWallet', v)
+    },
     change(v) {
       this.index = v
       const conf = this.$store.state.chains.selected
       localStorage.setItem(`${conf.chain_name}-api-index`, v)
+      window.location.reload()
     },
     block() {
       const conf = this.$store.state.chains.selected
@@ -293,7 +344,7 @@ export default {
       this.$store.commit('setHeight', 0)
       this.api = conf.api
       this.$http.getLatestBlock().then(block => {
-        this.chainId = block.block.header.chain_id
+        this.chainid = block.block.header.chain_id
         this.$store.commit('setHeight', Number(block.block.header.height))
         if (timeIn(block.block.header.time, 1, 'm')) {
           this.variant = 'danger'

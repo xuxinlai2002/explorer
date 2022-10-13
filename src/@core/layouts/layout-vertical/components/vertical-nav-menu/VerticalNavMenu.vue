@@ -3,7 +3,7 @@
     class="main-menu menu-fixed menu-accordion menu-shadow"
     :class="[
       { 'expanded': !isVerticalMenuCollapsed || (isVerticalMenuCollapsed && isMouseHovered) },
-      skin === 'semi-dark' ? 'menu-dark' : 'menu-light'
+      skin === 'dark' ? 'menu-dark' : 'menu-light'
     ]"
     @mouseenter="updateMouseHovered(true)"
     @mouseleave="updateMouseHovered(false)"
@@ -12,9 +12,9 @@
     <div class="navbar-header expanded">
       <slot
         name="header"
-        :toggleVerticalMenuActive="toggleVerticalMenuActive"
-        :toggleCollapsed="toggleCollapsed"
-        :collapseTogglerIcon="collapseTogglerIcon"
+        :toggle-vertical-menu-active="toggleVerticalMenuActive"
+        :toggle-collapsed="toggleCollapsed"
+        :collapse-toggler-icon="collapseTogglerIcon"
       >
         <ul class="nav navbar-nav flex-row">
 
@@ -57,13 +57,6 @@
       </slot>
     </div>
     <!-- / main menu header-->
-
-    <!-- Shadow -->
-    <div
-      :class="{'d-block': shallShadowBottom}"
-      class="shadow-bottom"
-    />
-
     <!-- main menu content-->
     <vue-perfect-scrollbar
       :settings="perfectScrollbarSettings"
@@ -72,7 +65,7 @@
       @ps-scroll-y="evt => { shallShadowBottom = evt.srcElement.scrollTop > 0 }"
     >
       <vertical-nav-menu-items
-        :items="navMenuItems"
+        :items.sync="navMenuItems"
         class="navigation navigation-main"
       />
     </vue-perfect-scrollbar>

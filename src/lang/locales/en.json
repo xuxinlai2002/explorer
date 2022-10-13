@@ -36,9 +36,10 @@
   "staking": "Staking",
   "governance": "Governance",
   "summary": "Summary",
-  "blocks": "Blocks",
+  "blocks": "Blocks / Transactions",
   "blockchains": "Blockchains",
   "uptime": "Uptime",
+  "statesync": "State Sync",
   "trade": "Trade",
 
   "gravity": "Gravity(WIP)",
