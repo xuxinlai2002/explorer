@@ -17,11 +17,6 @@ function commonProcess(res) {
   return res
 }
 
-function purseTotalSupply(res) {
-  console.log(res)
-  return '1'
-}
-
 // 头像
 export function keybase(identity) {
   return fetch(`https://keybase.io/_/api/1.0/user/lookup.json?key_suffix=${identity}&fields=pictures`)
