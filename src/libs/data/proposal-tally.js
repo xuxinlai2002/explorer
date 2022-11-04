@@ -15,8 +15,12 @@ export default class ProposalTally {
       this.total = 3548630000000000000000000
     } else {
       this.total = total
+      // this.total = 3548630000000000000000000
     }
     this.yes = Number(element.yes) / this.total
+    if (this.yes > 1) {
+      this.yes = 1
+    }
     this.no = Number(element.no) / this.total
     this.veto = Number(element.no_with_veto) / this.total
     this.abstain = Number(element.abstain) / this.total
