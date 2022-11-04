@@ -11,7 +11,8 @@ export default class ProposalTally {
   init(element, total) {
     const subtotal = Number(element.yes) + Number(element.no) + Number(element.abstain) + Number(element.no_with_veto)
     if (total < 1) {
-      this.total = subtotal + 1
+      // this.total = subtotal + 1
+      this.total = 3548630000000000000000000
     } else {
       this.total = total
     }
