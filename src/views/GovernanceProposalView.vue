@@ -373,6 +373,7 @@ export default {
     })
 
     this.$http.getGovernance(pid).then(p => {
+      console.log('xxl p', p)
       if (p.status === 2) {
         this.$http.getGovernanceTally(pid, 0).then(t => p.updateTally(t))
       }
@@ -384,13 +385,19 @@ export default {
     }
 
     this.$http.getGovernanceProposer(pid).then(res => {
+      console.log('xxl getGovernanceProposer', res)
       this.proposer = res
     })
     this.$http.getGovernanceDeposits(pid).then(res => {
       this.deposits = res
     }).catch(() => {})
     this.$http.getGovernanceVotes(pid).then(res => {
-      this.votes = res
+      console.log('xxl getGovernanceVotes', res.votes)
+      const tempRes = res
+      for (let i = 0; i < res.votes.length; i += 1) {
+        tempRes.votes[i].option = tempRes.votes[i].options[0].option
+      }
+      this.votes = tempRes
       this.next = res.pagination ? res.pagination.next_key : null
     })
   },
