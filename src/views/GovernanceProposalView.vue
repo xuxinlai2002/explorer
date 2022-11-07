@@ -408,7 +408,11 @@ export default {
         const { next } = this
         this.next = null
         this.$http.getGovernanceVotes(pid, next).then(res => {
-          this.$set(this.votes, 'votes', this.votes.votes.concat(res.votes))
+          const tempRes = res
+          for (let i = 0; i < res.votes.length; i += 1) {
+            tempRes.votes[i].option = tempRes.votes[i].options[0].option
+          }
+          this.$set(this.votes, 'votes', this.votes.votes.concat(tempRes.votes))
           this.next = res.pagination ? res.pagination.next_key : null
         })
       }
