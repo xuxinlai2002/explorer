@@ -186,7 +186,7 @@ export default {
   },
   created() {
     this.validators()
-    this.rpc = `${this.chains[this.selected].rpc[0]}/consensus_state`
+    this.rpc = 'https://uptick-testnet-rpc.brocha.in/consensus_state'
     this.fetchPosition()
     this.update()
     this.timer = setInterval(this.update, 6000)
