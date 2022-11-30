@@ -399,7 +399,8 @@ export default class ChainFetch {
 
   async getStakingDelegations(address, config = null) {
     if (compareVersions(config ? config.sdk_version : this.config.sdk_version, '0.40') < 0) {
-      return this.get(`/staking/delegators/${address}/delegations`, config).then(data => commonProcess(data).map(x => {
+      // return this.get(`/staking/delegators/${address}/delegations`, config).then(data => commonProcess(data).map(x => {
+      return this.get(`/staking/delegators/${address}/delegations?pagination.size=200`).then(data => commonProcess(data).map(x => {
         const xh = x
         if (!xh.delegation) {
           xh.delegation = {
@@ -410,7 +411,8 @@ export default class ChainFetch {
         return xh
       }))
     }
-    return this.get(`/cosmos/staking/v1beta1/delegations/${address}`, config).then(data => commonProcess(data))
+    // return this.get(`/cosmos/staking/v1beta1/delegations/${address}`, config).then(data => commonProcess(data))
+    return this.get(`/cosmos/staking/v1beta1/delegations/${address}?pagination.size=200`).then(data => commonProcess(data))
   }
 
   async getStakingRedelegations(address, config = null) {
