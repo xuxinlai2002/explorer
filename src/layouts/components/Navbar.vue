@@ -285,7 +285,7 @@ export default {
   methods: {
     async connectKeplr() {
       await window.keplr.experimentalSuggestChain({
-        chainId: 'uptick_7000-1',
+        chainId: 'uptick_7000-2',
         chainName: 'Uptick Testnet2',
         rpc: 'https://peer1.testnet.uptick.network:36657',
         rest: this.api,
