@@ -21,7 +21,11 @@
                 <h4 class="mb-0">
                   {{ validator.description.moniker }}
                 </h4>
-                <span class="card-text">{{ validator.description.website }}</span>
+                <span class="card-text">
+                  <b-link :href="validator.description.website">
+                    {{ validator.description.website }}
+                  </b-link>
+                </span>
               </div>
               <div class="d-flex flex-wrap">
                 <b-button
@@ -183,7 +187,7 @@
                 <span class="font-weight-bold">Contact</span>
               </th>
               <td>
-                {{ validator.security_contact || '-' }}
+                {{ validator.description.security_contact || '-' }}
               </td>
             </tr>
           </table>
@@ -224,6 +228,7 @@
           :operator-address="validator.operator_address"
           :consensus-pubkey="validator.consensus_pubkey"
           :account-address="accountAddress"
+          :valcons-address="valconsAddress"
         />
       </b-col>
     </b-row>
@@ -269,11 +274,11 @@
 
 <script>
 import {
-  BCard, BButton, BAvatar, BRow, BCol, BTable, BCardFooter, VBTooltip, VBModal, BBadge, BPagination,
+  BCard, BButton, BAvatar, BRow, BCol, BTable, BCardFooter, VBTooltip, VBModal, BBadge, BPagination, BLink,
 } from 'bootstrap-vue'
 
 import {
-  percent, formatToken, StakingParameters, Validator, operatorAddressToAccount, consensusPubkeyToHexAddress, toDay, abbrMessage, abbrAddress,
+  percent, formatToken, StakingParameters, Validator, operatorAddressToAccount, consensusPubkeyToHexAddress, toDay, abbrMessage, abbrAddress, valoperToPrefix, pubKeyToValcons,
 } from '@/libs/utils'
 import { keybase } from '@/libs/fetch'
 import OperationModal from '@/views/components/OperationModal/index.vue'
@@ -292,6 +297,7 @@ export default {
     BBadge,
     BPagination,
     BTable,
+    BLink,
     StakingAddressComponent,
     StakingCommissionComponent,
     StakingRewardComponent,
@@ -314,6 +320,7 @@ export default {
       latestHeight: 0,
       accountAddress: '-',
       hexAddress: '-',
+      valconsAddress: '-',
       stakingPool: {},
       mintInflation: 0,
       stakingParameter: new StakingParameters(),
@@ -384,8 +391,10 @@ export default {
       return percent(value)
     },
     processAddress(operAddress, consensusPubkey) {
+      const prefix = valoperToPrefix(operAddress)
       this.accountAddress = operatorAddressToAccount(operAddress)
       this.hexAddress = consensusPubkeyToHexAddress(consensusPubkey)
+      this.valconsAddress = pubKeyToValcons(consensusPubkey, prefix)
       this.$http.getStakingDelegatorDelegation(this.accountAddress, operAddress).then(d => {
         this.selfDelegation = d
       })

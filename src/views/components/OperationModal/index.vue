@@ -286,7 +286,7 @@ export default {
       fee: '900',
       feeDenom: '',
       wallet: 'ledgerUSB',
-      gas: '300000',
+      gas: '250000',
       memo: '',
       blockingMsg: this.address ? 'You are not the owner' : 'No available account found.',
       actionName: 'Send',

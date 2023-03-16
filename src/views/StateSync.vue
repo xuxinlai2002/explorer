@@ -36,7 +36,7 @@
         @change="check()"
       />
       <b class="mt-1">3. Start the daemon: <span v-if="daemon"><code>{{ daemon }} start</code></span></b><br>
-      If you are resetting node, run <code>{{ daemon }} tendermint unsafe-reset-all --home ~/.HOME</code> before you start the daemon.
+      If you are resetting node, run <code>{{ daemon }} unsafe-reset-all</code> or <code>{{ daemon }} tendermint unsafe-reset-all --home ~/.HOME</code> before you start the daemon.
     </b-card>
 
     <b-card>
