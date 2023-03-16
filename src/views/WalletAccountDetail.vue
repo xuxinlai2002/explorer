@@ -503,13 +503,7 @@ import {
 } from '@/libs/utils'
 import OperationModal from '@/views/components/OperationModal/index.vue'
 import QueryModal from '@/views/components/QueryModal/index.vue'
-import {
-  convertAddress,
-  resolveDomainDetails,
-  resolveDomainIntoAddresses,
-  resolvePrimaryDomainByAddress,
-  resolveDomainIntoChainAddress,
-} from 'ibc-domains-sdk'
+
 import ObjectFieldComponent from './components/ObjectFieldComponent.vue'
 import ChartComponentDoughnut from './components/charts/ChartComponentDoughnut.vue'
 
@@ -752,22 +746,6 @@ export default {
       })
     }).catch(err => {
       this.error = err
-    })
-    this.$http.resolveStarName(this.address).then(x => {
-      if (x.data) {
-        this.names.push({
-          provider: 'Stargaze',
-          name: x.data,
-        })
-      }
-    })
-    resolvePrimaryDomainByAddress(this.address).then(result => {
-      if (result.isOk()) {
-        this.names.push({
-          provider: 'IBC Domain',
-          name: result.value,
-        })
-      }
     })
   },
   mounted() {

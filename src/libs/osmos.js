@@ -58,7 +58,6 @@ export const CoinGeckoMap = {
   NGM: ['e-money'],
   EEUR: ['e-money-eur'],
   LIKE: ['likecoin'],
-  JUNO: ['juno-network'],
   STGZ: ['stargaze-protocol'],
   VDL: ['vidulum'],
   XKI: ['ki'],

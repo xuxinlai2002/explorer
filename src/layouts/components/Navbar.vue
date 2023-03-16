@@ -210,7 +210,7 @@ import Locale from '@core/layouts/components/app-navbar/components/Locale.vue'
 import SearchBar from '@core/layouts/components/app-navbar/components/SearchBar.vue'
 // import CartDropdown from '@core/layouts/components/app-navbar/components/CartDropdown.vue'
 import { getLocalAccounts, timeIn, toDay } from '@/libs/utils'
-import { resolvePrimaryDomainByAddress } from 'ibc-domains-sdk'
+// import { resolvePrimaryDomainByAddress } from 'ibc-domains-sdk'
 // import UserDropdown from '@core/layouts/components/app-navbar/components/UserDropdown.vue'
 
 export default {
@@ -353,19 +353,6 @@ export default {
             this.names[v].push(name)
           } else {
             this.names[v] = [name]
-          }
-        })
-        resolvePrimaryDomainByAddress(this.address).then(result => {
-          if (result.isOk()) {
-            const name = {
-              name: result.value,
-              provider: 'IBC Domain',
-            }
-            if (this.names[v]) {
-              this.names[v].push(name)
-            } else {
-              this.names[v] = [name]
-            }
           }
         })
       }
