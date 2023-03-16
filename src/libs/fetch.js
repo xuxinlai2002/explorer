@@ -648,7 +648,7 @@ export default class ChainFetch {
       true,
     ).then(data => commonProcess(data))
   }
-  
+
   async getUrl(url) {
     this.getSelectedConfig()
     return fetch(url).then(res => res.json())
