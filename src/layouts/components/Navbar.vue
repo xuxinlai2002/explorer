@@ -147,20 +147,20 @@
         </b-dropdown-item>
         <b-dropdown-divider />
 
-        <b-dropdown-item :to="{ name: 'accounts' }">
-          <feather-icon
-            icon="KeyIcon"
-            size="16"
-          />
-          <span class="align-middle ml-50">Accounts</span>
-        </b-dropdown-item>
-
         <b-dropdown-item @click="connectKeplr()">
           <feather-icon
             icon="KeyIcon"
             size="16"
           />
           <span class="align-middle ml-50">Connect to Keplr</span>
+        </b-dropdown-item>
+
+        <b-dropdown-item :to="{ name: 'accounts' }">
+          <feather-icon
+            icon="KeyIcon"
+            size="16"
+          />
+          <span class="align-middle ml-50">Accounts</span>
         </b-dropdown-item>
 
         <b-dropdown-item :to="{ name: 'delegations' }">
@@ -297,6 +297,50 @@ export default {
     },
   },
   methods: {
+
+    async connectKeplr() {
+      await window.keplr.experimentalSuggestChain({
+        chainId: this.chainId,
+        chainName: 'Uptick Testnet',
+        rpc: 'https://peer1.testnet.uptick.network:36657',
+        rest: this.api,
+        stakeCurrency: {
+          coinDenom: 'uptick',
+          coinMinimalDenom: 'auptick',
+          coinDecimals: 18,
+        },
+        bip44: {
+          coinType: 60,
+        },
+        bech32Config: {
+          bech32PrefixAccAddr: 'uptick',
+          bech32PrefixAccPub: 'uptickpub',
+          bech32PrefixValAddr: 'uptickvaloper',
+          bech32PrefixValPub: 'uptickvaloperpub',
+          bech32PrefixConsAddr: 'uptickvalcons',
+          bech32PrefixConsPub: 'uptickvalconspub',
+        },
+        currencies: [{
+          coinDenom: 'UPTICK',
+          coinMinimalDenom: 'auptick',
+          coinDecimals: 18,
+        }],
+        feeCurrencies: [{
+          coinDenom: 'UPTICK',
+          coinMinimalDenom: 'auptick',
+          coinDecimals: 18,
+        }],
+        coinType: 60,
+        gasPriceStep: {
+          low: 0.01,
+          average: 0.025,
+          high: 0.04,
+        },
+        features: ['ibc-transfer', 'ibc-go', 'eth-address-gen', 'eth-key-sign'],
+        beta: true,
+      })
+    },
+
     formatAddr(v) {
       if (!this.loading.includes(v)) {
         this.loading.push(v)
