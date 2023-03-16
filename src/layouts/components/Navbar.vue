@@ -342,20 +342,6 @@ export default {
     },
 
     formatAddr(v) {
-      if (!this.loading.includes(v)) {
-        this.loading.push(v)
-        this.$http.resolveStarName(v).then(res => {
-          const name = {
-            name: res.data,
-            provider: 'Stargaze',
-          }
-          if (this.names[v]) {
-            this.names[v].push(name)
-          } else {
-            this.names[v] = [name]
-          }
-        })
-      }
       return v.substring(0, 10).concat('...', v.substring(v.length - 10))
     },
     updateDefaultWallet(v) {
