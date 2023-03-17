@@ -106,7 +106,7 @@ export default class ChainFetch {
   }
 
   async getTxsBySender(sender) {
-    return this.get(`/cosmos/tx/v1beta1/txs?events=message.sender='${sender}'&pagination.reverse=true`)
+    return this.get(`/cosmos/tx/v1beta1/txs?events=message.sender='${sender}'&pagination.reverse=true&order_by=2`)
   }
 
   async getTxsByRecipient(recipient) {
@@ -360,7 +360,7 @@ export default class ChainFetch {
     const conf = chain || this.config
 
     const ver = compareVersions(this.config.sdk_version, '0.46.5') < 0 ? 'v1beta1' : 'v1'
-    const url = conf.chain_name === 'shentu' ? `/shentu/gov/v1alpha1/proposals?pagination.limit=100&proposal_status=${status}` : `/cosmos/gov/${ver}/proposals?pagination.limit=100&proposal_status=${status}`
+    const url = conf.chain_name === 'shentu' ? `/shentu/gov/v1alpha1/proposals?pagination.limit=100&pagination.reverse=true&proposal_status=${status}` : `/cosmos/gov/${ver}/proposals?pagination.limit=100&pagination.reverse=true&proposal_status=${status}`
     return this.get(url, conf).then(data => {
       let proposals = commonProcess(data)
       if (Array.isArray(proposals.proposals)) {
