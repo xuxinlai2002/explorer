@@ -1,7 +1,7 @@
 {
-    "chain_id":"uptick_7000-2",
-    "chain_name": "uptick-network-testnet",
-    "api": "https://peer1.testnet.uptick.network:1318",
+    "chain_id":"uptick_117-1",
+    "chain_name": "uptick-network-mainnet",
+    "api": "https://grpc.uptick.network",
     "sdk_version": "v0.46.0",
     "coin_type": "60",
     "min_tx_fee": "40000",
