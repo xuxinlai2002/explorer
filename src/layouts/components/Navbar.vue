@@ -301,8 +301,8 @@ export default {
     async connectKeplr() {
       await window.keplr.experimentalSuggestChain({
         chainId: this.chainId,
-        chainName: 'Uptick Testnet',
-        rpc: 'https://peer1.testnet.uptick.network:36657',
+        chainName: 'Uptick Mainnet',
+        rpc: ' https://rpc.uptick.network',
         rest: this.api,
         stakeCurrency: {
           coinDenom: 'uptick',
