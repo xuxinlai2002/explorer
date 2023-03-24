@@ -332,9 +332,9 @@ export default {
         }],
         coinType: 60,
         gasPriceStep: {
-          low: 0.01,
-          average: 0.025,
-          high: 0.04,
+          low: 1 * 10000000000,
+          average: 2 * 10000000000,
+          high: 4 * 10000000000,
         },
         features: ['ibc-transfer', 'ibc-go', 'eth-address-gen', 'eth-key-sign'],
         beta: true,
