@@ -420,7 +420,11 @@ export default {
       this.deposits = res
     }).catch(() => {})
     this.$http.getGovernanceVotes(pid).then(res => {
-      this.votes = res
+      const tempRes = res
+      for (let i = 0; i < res.votes.length; i += 1) {
+        tempRes.votes[i].option = tempRes.votes[i].options[0].option
+      }
+      this.votes = tempRes
       this.next = res.pagination ? res.pagination.next_key : null
     })
   },
