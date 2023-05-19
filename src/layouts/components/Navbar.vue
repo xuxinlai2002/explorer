@@ -298,12 +298,12 @@ export default {
           coinType: 60,
         },
         bech32Config: {
-          bech32PrefixAccAddr: 'uoc',
-          bech32PrefixAccPub: 'uocpub',
-          bech32PrefixValAddr: 'uocvaloper',
-          bech32PrefixValPub: 'uocvaloperpub',
-          bech32PrefixConsAddr: 'uocvalcons',
-          bech32PrefixConsPub: 'uocvalconspub',
+          bech32PrefixAccAddr: 'uptick',
+          bech32PrefixAccPub: 'uptickpub',
+          bech32PrefixValAddr: 'uptickvaloper',
+          bech32PrefixValPub: 'uptickvaloperpub',
+          bech32PrefixConsAddr: 'uptickvalcons',
+          bech32PrefixConsPub: 'uptickvalconspub',
         },
         currencies: [{
           coinDenom: 'uoc',
