@@ -33,7 +33,7 @@ function processMenu() {
   } else {
     chainMenus.push({
       title: 'Testnet Explorer',
-      href: 'https://explorer.testnet.uptick.network/uptick-network-testnet',
+      href: 'https://explorer.origin.uptick.network/uptick%20origin',
       icon: 'LifeBuoyIcon',
     })
   }
