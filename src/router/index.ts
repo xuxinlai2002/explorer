@@ -5,6 +5,9 @@ import { setupLayouts } from "virtual:generated-layouts";
 // @ts-ignore
 import routes from "~pages";
 
+//xxl 001 add redict to Uptick
+routes[4]["redirect"]="/Uptick Origin"
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [...setupLayouts(routes)],
@@ -22,5 +25,4 @@ router.beforeEach((to) => {
 })
 
 // Docs: https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
-
 export default router;
