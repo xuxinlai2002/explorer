@@ -8,7 +8,7 @@ exports.AminoTypes = void 0;
 const amino_1 = require("@cosmjs/amino");
 const encoding_1 = require("@cosmjs/encoding");
 const utils_1 = require("@cosmjs/utils");
-const gov_1 = require("cosmjs-types/cosmos/gov/v1beta1/gov");
+const gov_1 = require("cosmjs-types/cosmos/gov/v1/gov");
 const any_1 = require("cosmjs-types/google/protobuf/any");
 const long_1 = __importDefault(require("long"));
 function omitDefault(input) {

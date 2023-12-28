@@ -23,9 +23,9 @@ export default class Proposal {
 
     this.id = element.proposal_id || element.id
     this.status = element.status
-    this.type = element.content.type
-    if (element.content['@type']) {
-      this.type = element.content['@type']
+    // this.type = element.messages[0].type
+    if (element.messages[0]['@type']) {
+      this.type = element.messages[0]['@type']
     }
     this.tally = new ProposalTally().init(element.final_tally_result, total)
     this.submit_time = element.submit_time
@@ -33,7 +33,7 @@ export default class Proposal {
     this.voting_start_time = element.voting_start_time
     // eslint-disable-next-line prefer-destructuring
     this.total_deposit = element.total_deposit[0]
-    this.contents = element.content.value || element.content
+    this.contents = element.messages[0].value || element.messages[0]
     if (this.contents) {
       this.title = this.contents.title
       this.description = this.contents.description

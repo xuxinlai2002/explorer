@@ -254,23 +254,23 @@ export default class ChainFetch {
   }
 
   async getGovernanceParameterDeposit() {
-    return this.get('/cosmos/gov/v1beta1/params/deposit').then(data => commonProcess(data.deposit_params))
+    return this.get('/cosmos/gov/v1/params/deposit').then(data => commonProcess(data.deposit_params))
   }
 
   async getGovernanceParameterTallying() {
-    return this.get('/cosmos/gov/v1beta1/params/tallying').then(data => commonProcess(data.tally_params))
+    return this.get('/cosmos/gov/v1/params/tallying').then(data => commonProcess(data.tally_params))
   }
 
   async getGovernanceParameterVoting() {
-    return this.get('/cosmos/gov/v1beta1/params/voting').then(data => commonProcess(data.voting_params))
+    return this.get('/cosmos/gov/v1/params/voting').then(data => commonProcess(data.voting_params))
   }
 
   async getGovernanceTally(pid, total, conf) {
-    return this.get(`/cosmos/gov/v1beta1/proposals/${pid}/tally`, conf).then(data => new ProposalTally().init(commonProcess(data).tally, total))
+    return this.get(`/cosmos/gov/v1/proposals/${pid}/tally`, conf).then(data => new ProposalTally().init(commonProcess(data).tally, total))
   }
 
   getGovernance(pid) {
-    return this.get(`/cosmos/gov/v1beta1/proposals/${pid}`).then(data => {
+    return this.get(`/cosmos/gov/v1/proposals/${pid}`).then(data => {
       const p = new Proposal().init(commonProcess(data).proposal, 0)
       p.versionFixed(this.config.sdk_version)
       return p
@@ -291,7 +291,7 @@ export default class ChainFetch {
         return Array.isArray(result) ? result.reverse().map(d => new Deposit().init(d)) : result
       })
     }
-    return this.get(`/cosmos/gov/v1beta1/proposals/${pid}/deposits`).then(data => {
+    return this.get(`/cosmos/gov/v1/proposals/${pid}/deposits`).then(data => {
       const result = commonProcess(data)
       return Array.isArray(result) ? result.reverse().map(d => new Deposit().init(d)) : result
     })
@@ -299,7 +299,7 @@ export default class ChainFetch {
 
   async getGovernanceVotes(pid, next = '', limit = 50) {
     if (compareVersions(this.config.sdk_version, '0.40') < 0) {
-      return this.get(`/cosmos/gov/v1beta1/proposals/${pid}/votes`).then(data => ({
+      return this.get(`/cosmos/gov/v1/proposals/${pid}/votes`).then(data => ({
         votes: commonProcess(data).map(d => new Votes().init(d)),
         pagination: {},
       }))
@@ -307,12 +307,12 @@ export default class ChainFetch {
     if (this.config.chain_name === 'shentu') {
       return this.get(`/shentu/gov/v1alpha1/proposals/${pid}/votes?pagination.key=${encodeURIComponent(next)}&pagination.limit=${limit}&pagination.reverse=true`)
     }
-    return this.get(`/cosmos/gov/v1beta1/proposals/${pid}/votes?pagination.key=${encodeURIComponent(next)}&pagination.limit=${limit}&pagination.reverse=true`)
+    return this.get(`/cosmos/gov/v1/proposals/${pid}/votes?pagination.key=${encodeURIComponent(next)}&pagination.limit=${limit}&pagination.reverse=true`)
   }
 
   async getGovernanceListByStatus(status, chain = null) {
     const conf = chain || this.config
-    const url = conf.chain_name === 'shentu' ? `/shentu/gov/v1alpha1/proposals?pagination.limit=100&proposal_status=${status}` : `/cosmos/gov/v1beta1/proposals?pagination.limit=100&proposal_status=${status}`
+    const url = conf.chain_name === 'shentu' ? `/shentu/gov/v1alpha1/proposals?pagination.limit=100&proposal_status=${status}` : `/cosmos/gov/v1/proposals?pagination.limit=100&proposal_status=${status}`
     return this.get(url, conf).then(data => {
       let proposals = commonProcess(data)
       if (Array.isArray(proposals.proposals)) {
@@ -336,7 +336,7 @@ export default class ChainFetch {
   async getGovernanceProposalVote(pid, voter, chain) {
     const url = this.config.chain_name === 'shentu'
       ? `/shentu/gov/v1alpha1/proposals/${pid}/votes/${voter}`
-      : `/cosmos/gov/v1beta1/proposals/${pid}/votes/${voter}`
+      : `/cosmos/gov/v1/proposals/${pid}/votes/${voter}`
     return this.get(url, chain).then(data => {
       if (data.code === 3) {
         throw new Error('not found')
@@ -354,7 +354,7 @@ export default class ChainFetch {
     const key = next || ''
     const url = this.config.chain_name === 'shentu'
       ? `/shentu/gov/v1alpha1/proposals?pagination.limit=20&pagination.reverse=true&pagination.key=${key}`
-      : `/cosmos/gov/v1beta1/proposals?pagination.limit=20&pagination.reverse=true&pagination.key=${key}`
+      : `/cosmos/gov/v1/proposals?pagination.limit=20&pagination.reverse=true&pagination.key=${key}`
     return this.get(url, chain).then(data => {
       let proposals = commonProcess(data)
       if (Array.isArray(proposals.proposals)) {
