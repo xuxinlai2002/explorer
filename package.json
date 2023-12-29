@@ -12,7 +12,6 @@
     "analyz": "vue-cli-service build --report"
   },
   "dependencies": {
-    "@keplr-wallet/cosmos": "^0.9.16",
     "@casl/ability": "4.1.6",
     "@casl/vue": "1.1.1",
     "@cosmjs/amino": "^0.28.4",
@@ -25,6 +24,7 @@
     "@cosmjs/stargate": "0.28.4",
     "@hanchon/signature-to-pubkey": "^1.0.0",
     "@intlify/vue-i18n-loader": "^2.1.2",
+    "@keplr-wallet/cosmos": "^0.9.16",
     "@ledgerhq/hw-app-eth": "^6.28.2",
     "@ledgerhq/hw-transport": "6.27.2",
     "@ledgerhq/hw-transport-web-ble": "^6.27.1",
@@ -96,7 +96,8 @@
     "vue2-flip-countdown": "^0.12.1",
     "vue2-leaflet": "2.5.2",
     "vuedraggable": "2.24.3",
-    "vuex": "3.6.0"
+    "vuex": "3.6.0",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.5.4",

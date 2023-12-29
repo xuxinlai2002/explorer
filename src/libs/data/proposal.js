@@ -23,7 +23,6 @@ export default class Proposal {
 
     this.id = element.proposal_id || element.id
     this.status = element.status
-    // this.type = element.messages[0].type
     if (element.messages[0]['@type']) {
       this.type = element.messages[0]['@type']
     }

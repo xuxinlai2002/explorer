@@ -31,9 +31,9 @@ function processMenu() {
     })
   } else {
     chainMenus.push({
-      title: 'Testnet Explorer',
-      href: 'https://explorer.testnet.uptick.network/uptick-network-testnet',
-      icon: 'LifeBuoyIcon',
+      title: 'Mainnet Explorer',
+      href: 'https://explorer.uptick.network/uptick-network-mainnet',
+      icon: 'ChromeIcon',
     })
   }
   chainMenus.push({

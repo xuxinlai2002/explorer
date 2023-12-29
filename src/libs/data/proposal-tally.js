@@ -9,7 +9,7 @@ export default class ProposalTally {
   }
 
   init(element, total) {
-    const subtotal = Number(element.yes) + Number(element.no) + Number(element.abstain) + Number(element.no_with_veto)
+    const subtotal = Number(element.yes_count) + Number(element.no_count) + Number(element.abstain_count) + Number(element.no_with_veto_count)
     if (total < 1) {
       // this.total = subtotal + 1
       this.total = 3548630000000000000000000
@@ -17,13 +17,13 @@ export default class ProposalTally {
       this.total = total
       // this.total = 3548630000000000000000000
     }
-    this.yes = Number(element.yes) / this.total
+    this.yes = Number(element.yes_count) / this.total
     if (this.yes > 1) {
       this.yes = 1
     }
-    this.no = Number(element.no) / this.total
-    this.veto = Number(element.no_with_veto) / this.total
-    this.abstain = Number(element.abstain) / this.total
+    this.no = Number(element.no_count) / this.total
+    this.veto = Number(element.no_with_veto_count) / this.total
+    this.abstain = Number(element.abstain_count) / this.total
     this.turnout = subtotal / this.total
     return this
   }

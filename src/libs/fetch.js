@@ -279,14 +279,14 @@ export default class ChainFetch {
 
   async getGovernanceProposer(pid) {
     if (this.config.chain_name === 'certik') {
-      return this.get(`/shentu/gov/v1alpha1/${pid}/proposer`).then(data => new Proposer().init(commonProcess(data)))
+      return this.get(`/shentu/gov/v1/${pid}/proposer`).then(data => new Proposer().init(commonProcess(data)))
     }
     return this.get(`/gov/proposals/${pid}/proposer`).then(data => new Proposer().init(commonProcess(data)))
   }
 
   async getGovernanceDeposits(pid) {
     if (this.config.chain_name === 'certik') {
-      return this.get(`/shentu/gov/v1alpha1/proposals/${pid}/deposits`).then(data => {
+      return this.get(`/shentu/gov/v1/proposals/${pid}/deposits`).then(data => {
         const result = commonProcess(data)
         return Array.isArray(result) ? result.reverse().map(d => new Deposit().init(d)) : result
       })
@@ -305,14 +305,14 @@ export default class ChainFetch {
       }))
     }
     if (this.config.chain_name === 'shentu') {
-      return this.get(`/shentu/gov/v1alpha1/proposals/${pid}/votes?pagination.key=${encodeURIComponent(next)}&pagination.limit=${limit}&pagination.reverse=true`)
+      return this.get(`/shentu/gov/v1/proposals/${pid}/votes?pagination.key=${encodeURIComponent(next)}&pagination.limit=${limit}&pagination.reverse=true`)
     }
     return this.get(`/cosmos/gov/v1/proposals/${pid}/votes?pagination.key=${encodeURIComponent(next)}&pagination.limit=${limit}&pagination.reverse=true`)
   }
 
   async getGovernanceListByStatus(status, chain = null) {
     const conf = chain || this.config
-    const url = conf.chain_name === 'shentu' ? `/shentu/gov/v1alpha1/proposals?pagination.limit=100&proposal_status=${status}` : `/cosmos/gov/v1/proposals?pagination.limit=100&proposal_status=${status}`
+    const url = conf.chain_name === 'shentu' ? `/shentu/gov/v1/proposals?pagination.limit=100&proposal_status=${status}` : `/cosmos/gov/v1/proposals?pagination.limit=100&proposal_status=${status}`
     return this.get(url, conf).then(data => {
       let proposals = commonProcess(data)
       if (Array.isArray(proposals.proposals)) {
@@ -335,7 +335,7 @@ export default class ChainFetch {
 
   async getGovernanceProposalVote(pid, voter, chain) {
     const url = this.config.chain_name === 'shentu'
-      ? `/shentu/gov/v1alpha1/proposals/${pid}/votes/${voter}`
+      ? `/shentu/gov/v1/proposals/${pid}/votes/${voter}`
       : `/cosmos/gov/v1/proposals/${pid}/votes/${voter}`
     return this.get(url, chain).then(data => {
       if (data.code === 3) {
@@ -353,7 +353,7 @@ export default class ChainFetch {
   async getGovernanceList(next = '', chain = null) {
     const key = next || ''
     const url = this.config.chain_name === 'shentu'
-      ? `/shentu/gov/v1alpha1/proposals?pagination.limit=20&pagination.reverse=true&pagination.key=${key}`
+      ? `/shentu/gov/v1/proposals?pagination.limit=20&pagination.reverse=true&pagination.key=${key}`
       : `/cosmos/gov/v1/proposals?pagination.limit=20&pagination.reverse=true&pagination.key=${key}`
     return this.get(url, chain).then(data => {
       let proposals = commonProcess(data)
