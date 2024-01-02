@@ -1,14 +1,43 @@
+# Prerequisites
+
+1. Node and Yarn - Acquired using Node Version Manager (https://github.com/nvm-sh/nvm)
+
+# Quick Install for Prerequisites
+
+1. Install Node Version Manager
+```sh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+```
+2. Install the latest version of NodeJS
+```sh
+nvm install node # "node" is an alias for the latest version
+```
+3. Install the latest version of NPM for Node
+```sh
+nvm install-latest-npm # get the latest supported npm version on the current node version
+```
+4. Install Yarn
+```sh
+npm install --global yarn
+```
+
 # Installation:
 
 1. Running with yarn
-```
-yarn && yarn serve
+```sh
+yarn --ignore-engines && yarn serve
 ```
 
 2. Building for web servers, like nginx, apache
-```
-yarn && yarn build
+```sh
+yarn --ignore-engines && yarn build
 cp -r ./dist/* <ROOT_OF_WEB_SERVER>
+```
+
+3. Running with docker
+```sh
+./docker.sh
+docker run -d -p 8088:80 ping.pub/dashboard
 ```
 
 # Enable LCD for Ping.pub (do this on the config for your chain)
