@@ -19,6 +19,9 @@ router.beforeEach((to) => {
         blockchain.setCurrent(chain.toString())
       }
     } 
+	else{
+		 return {path:'/Uptick%20Origin'}
+	}
 })
 
 // Docs: https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
