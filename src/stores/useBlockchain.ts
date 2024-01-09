@@ -118,23 +118,14 @@ export const useBlockchain = defineStore('blockchain', {
       // combine all together
       return [
         ...currNavItem,
-        { heading: 'Ecosystem' } as NavSectionTitle,
-        {
-          title: 'Favorite',
-          children: favNavItems,
-          badgeContent: favNavItems.length,
-          badgeClass: 'bg-primary',
-          i18n: true,
-          icon: { icon: 'mdi-star', size: '22' },
-        } as NavGroup,
-        {
-          title: 'All Blockchains',
-          to: { path: '/' },
-          badgeContent: this.dashboard.length,
-          badgeClass: 'bg-primary',
-          i18n: true,
-          icon: { icon: 'mdi-grid', size: '22' },
-        } as NavLink,
+        // { heading: 'LINKS', } as NavSectionTitle,
+        // {
+        //   title: 'Mainnet Explorer',
+        //   to: { path: 'https://explorer.uptick.network/uptick-network-mainnet' },
+        //   badgeClass: 'bg-primary',
+        //   i18n: true,
+        //   icon: { icon: 'mdi-google-chrome', size: '22' },
+        // } as NavLink,
       ];
     },
   },
