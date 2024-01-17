@@ -15,8 +15,16 @@ const props = defineProps({
 });
 const total = computed(() => props.pool?.bonded_tokens);
 const format = useFormatter();
-const yes = computed(() =>
-  format.calculatePercent(props.tally?.yes || props.tally?.yes_count, total.value)
+const yes = computed(() => {
+
+  if(Number(props.tally?.yes || props.tally?.yes_count) > Number(total.value)){
+    return format.calculatePercent(total.value, total.value)
+  }else{
+    return format.calculatePercent(props.tally?.yes || props.tally?.yes_count, total.value)
+  }
+}
+  
+
 );
 const no = computed(() =>
   format.calculatePercent(props.tally?.no || props.tally?.no_count, total.value)

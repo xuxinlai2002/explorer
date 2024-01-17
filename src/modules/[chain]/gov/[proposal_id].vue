@@ -112,7 +112,6 @@ const total = computed(() => {
 
   
   const tally = proposal.value.final_tally_result;
-  console.log("xxl 0003 proposal : ",tally);
 
   let sum = 0;
   if (tally) {
@@ -125,12 +124,12 @@ const total = computed(() => {
 });
 
 const turnout = computed(() => {
-  console.log("xxl total ",total);
+
 
   if (total.value > 0) {
-    const bonded = stakingStore.pool?.bonded_tokens || '1';
-  
-    if((total.value > Number(bonded))){
+    const bonded = stakingStore.pool?.bonded_tokens || '1';  
+
+    if((total.value >= Number(bonded))){
       return format.percent(1);
     }else{
       return format.percent(total.value / Number(bonded));
