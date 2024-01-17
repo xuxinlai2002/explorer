@@ -68,15 +68,19 @@ async function initParamsForKeplr() {
             coinDecimals,
             coinGeckoId: chain.assets[0].coingecko_id || 'unknown',
         },
-        features: chain.keplrFeatures || [],
+        features: ['ibc-transfer', 'ibc-go', 'eth-address-gen', 'eth-key-sign'],
     }, null, '\t')
 }
 
 function suggest() {
     // @ts-ignore
     if (window.keplr) {
+
+        console.log("xxl 0000 abc : ",conf.value);
         // @ts-ignore
         window.keplr.experimentalSuggestChain(JSON.parse(conf.value)).catch(e => {
+
+            console.log("xxl e ",e);
             error.value = e
         })
     }

@@ -213,7 +213,8 @@ function selected(route: any, nav: NavLink) {
       <div class="px-2">
         <div class="px-4 text-sm pt-2 text-gray-400 pb-2 uppercase">{{ $t('module.links') }}</div>
 
-        <a
+        <!-- 
+          <a
           href="https://explorer.uptick.network/uptick-network-mainnet"
           target="_blank"
           class="py-2 px-4 flex items-center cursor-pointer rounded-lg hover:bg-gray-100 dark:hover:bg-[#373f59]"
@@ -224,7 +225,8 @@ function selected(route: any, nav: NavLink) {
           >
             Mainnet Explorer
           </div>
-        </a>
+        </a> 
+        -->
 
         <a
           href="https://github.com/UptickNetwork/uptick"

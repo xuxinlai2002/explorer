@@ -109,28 +109,39 @@ const upgradeCountdown = computed((): number => {
 });
 
 const total = computed(() => {
+
+  
   const tally = proposal.value.final_tally_result;
+  console.log("xxl 0003 proposal : ",tally);
+
   let sum = 0;
   if (tally) {
-    sum += Number(tally.abstain || 0);
-    sum += Number(tally.yes || 0);
-    sum += Number(tally.no || 0);
-    sum += Number(tally.no_with_veto || 0);
+    sum += Number(tally.abstain || tally?.abstain_count|| 0);
+    sum += Number(tally.yes || tally?.yes_count || 0);
+    sum += Number(tally.no || tally?.no_count || 0);
+    sum += Number(tally.no_with_veto || tally?.no_with_veto_count || 0);
   }
   return sum;
 });
 
 const turnout = computed(() => {
+  console.log("xxl total ",total);
+
   if (total.value > 0) {
     const bonded = stakingStore.pool?.bonded_tokens || '1';
-    return format.percent(total.value / Number(bonded));
+  
+    if((total.value > Number(bonded))){
+      return format.percent(1);
+    }else{
+      return format.percent(total.value / Number(bonded));
+    }
   }
   return 0;
 });
 
 const yes = computed(() => {
   if (total.value > 0) {
-    const yes = proposal.value?.final_tally_result?.yes || 0;
+    const yes = proposal.value?.final_tally_result?.yes || proposal.value?.final_tally_result?.yes_count || 0;
     return format.percent(Number(yes) / total.value);
   }
   return 0;
@@ -138,7 +149,7 @@ const yes = computed(() => {
 
 const no = computed(() => {
   if (total.value > 0) {
-    const value = proposal.value?.final_tally_result?.no || 0;
+    const value = proposal.value?.final_tally_result?.no || proposal.value?.final_tally_result?.no_count || 0;
     return format.percent(Number(value) / total.value);
   }
   return 0;
@@ -146,7 +157,7 @@ const no = computed(() => {
 
 const veto = computed(() => {
   if (total.value > 0) {
-    const value = proposal.value?.final_tally_result?.no_with_veto || 0;
+    const value = proposal.value?.final_tally_result?.no_with_veto || proposal.value?.final_tally_result?.no_with_veto_count || 0;
     return format.percent(Number(value) / total.value);
   }
   return 0;
@@ -154,7 +165,7 @@ const veto = computed(() => {
 
 const abstain = computed(() => {
   if (total.value > 0) {
-    const value = proposal.value?.final_tally_result?.abstain || 0;
+    const value = proposal.value?.final_tally_result?.abstain || proposal.value?.final_tally_result?.abstain_count || 0;
     return format.percent(Number(value) / total.value);
   }
   return 0;
