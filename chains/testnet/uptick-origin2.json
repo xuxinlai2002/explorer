@@ -5,7 +5,7 @@
     "sdk_version": "v0.47.5",
     "coin_type": "60",
     "min_tx_fee": "40000",
-    "addr_prefix": "uoc",
+    "addr_prefix": "uptick",
     "logo": "https://file.uptick.network/file/image/dNOLswid7dGe29CFhPp3Ow.png",
     "assets": [
         {
