@@ -1,6 +1,6 @@
 {
     "chain_id":"origin_1170-2",
-    "chain_name": "Uptick Origin2",
+    "chain_name": "uptick-origin2",
     "api": "https://rest.origin.uptick.network",
     "rpc":"https://rpc.origin.uptick.network",
     "sdk_version": "v0.47.5",
