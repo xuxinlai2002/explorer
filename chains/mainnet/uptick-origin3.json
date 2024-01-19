@@ -1,8 +1,8 @@
 {
     "chain_id":"origin_1170-3",
     "chain_name": "uptick-origin3",
-    "api": "http://47.128.211.171:1317",
-    "rpc":"http://47.128.211.171:26657",
+    "api": "https://rest.origin-3.uptick.network",
+    "rpc":"https://rpc.origin-3.uptick.network",
     "sdk_version": "v0.47.5",
     "coin_type": "60",
     "min_tx_fee": "40000",
