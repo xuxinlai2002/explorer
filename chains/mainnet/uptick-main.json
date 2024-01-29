@@ -3,7 +3,7 @@
     "chain_name": "uptick-mainnet",
     "api": "https://rest.uptick.network",
     "rpc":"https://rpc.uptick.network",
-    "sdk_version": "v0.46.0",
+    "sdk_version": "v0.47.5",
     "coin_type": "60",
     "min_tx_fee": "40000",
     "addr_prefix": "uptick",
