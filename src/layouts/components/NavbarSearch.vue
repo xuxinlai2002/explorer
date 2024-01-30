@@ -9,7 +9,11 @@ const blockStore = useBlockchain();
 let searchModalShow = ref(false);
 let searchQuery = ref('');
 let errorMessage = ref('');
-onMounted(() => {});
+onMounted(() => {
+  console.log("wxl uptick1y59lhy0d6m5aafv42z39qf5e0fuaa9fh5gw4ag",searchQuery.value, searchModalShow.value);
+  
+  searchQuery.value = ''
+});
 
 function closeSearchModal() {
   searchModalShow.value = false;

@@ -9,9 +9,19 @@ const props = defineProps({
 });
 
 const formatter = useFormatter();
-function calculateValue(value: any) {
+function calculateValue(value: any,title:any) {
+  console.log("000000000",title);
+ 
+  
   if (Array.isArray(value)) {
-    return (value[0] && value[0].amount) || '-';
+    if(title == 'min_deposit'){
+ 
+      return (value[0] && value[0].amount) / 1000000000000000000 || '-';
+  
+}else{
+  return (value[0] && value[0].amount) || '-';
+}
+   
   }
   if(String(value).search(/^\d+s$/g) > -1) {
     return formatSeconds(value)
@@ -47,7 +57,7 @@ function formatTitle(v: string) {
         class="rounded-sm bg-active px-4 py-2"
       >
         <div class="text-xs mb-2 text-secondary capitalize">{{ formatTitle(item?.subtitle) }}</div>
-        <div class="text-base text-main">{{ calculateValue(item?.value) }}</div>
+        <div class="text-base text-main" style="">{{ calculateValue(item?.value,item?.subtitle) }}</div>
       </div>
     </div>
   </div>

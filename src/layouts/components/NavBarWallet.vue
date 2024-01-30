@@ -2,6 +2,8 @@
 import { useBaseStore, useBlockchain, useWalletStore } from '@/stores';
 import { Icon } from '@iconify/vue';
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 const walletStore = useWalletStore();
 const chainStore = useBlockchain();
@@ -27,7 +29,13 @@ async function copyAdress(address: string) {
     }, 1000);
   }
 }
+function disconnected() {
+
+  walletStore.disconnect()
+  router.push('/')
+}
 const tipMsg = computed(() => {
+ 
   return showCopyToast.value === 2
     ? { class: 'error', msg: 'Copy Error!' }
     : { class: 'success', msg: 'Copy Success!' };
@@ -54,17 +62,17 @@ const tipMsg = computed(() => {
           style="overflow-wrap: anywhere" @click="copyAdress(walletStore.currentAddress)">
           {{ walletStore.currentAddress }}
         </a>
-        <div class="divider mt-1 mb-1"></div>
-        <RouterLink to="/wallet/accounts">
+        <!-- <div class="divider mt-1 mb-1"></div> -->
+        <!-- <RouterLink to="/wallet/accounts">
           <div class="block py-2 px-2 hover:!bg-gray-100 rounded cursor-pointer">Accounts</div>
         </RouterLink>
         <RouterLink to="/wallet/portfolio">
           <div class="block py-2 px-2 hover:!bg-gray-100 rounded cursor-pointer">Portfolio</div>
-        </RouterLink>
+        </RouterLink> -->
         <div v-if="walletStore.currentAddress" class="divider mt-1 mb-1"></div>
         <a v-if="walletStore.currentAddress"
           class="block py-2 px-2 hover:bg-gray-100 dark:hover:bg-[#353f5a] rounded cursor-pointer"
-          @click="walletStore.disconnect()">Disconnect</a>
+          @click="disconnected">Disconnect</a>
       </div>
     </div>
     <div class="toast" v-show="showCopyToast === 1">
