@@ -1,0 +1,19 @@
+{
+    "chain_id":"jasper_7000-1",
+    "chain_name": "Jasper",
+    "api": "http://47.242.107.228:1317",
+    "sdk_version": "v0.47.5",
+    "coin_type": "60",
+    "min_tx_fee": "40000",
+    "addr_prefix": "jasper",
+    "logo": "https://xuxinlai2002.github.io/test/japer-logo.jpeg",
+    "assets": [
+        {
+            "base": "ajasper",
+            "symbol": "JASPER",
+            "exponent": "18",
+            "coingecko_id": "Jasper",
+            "logo": "https://xuxinlai2002.github.io/test/japer-logo.jpeg"
+        }
+    ]
+}

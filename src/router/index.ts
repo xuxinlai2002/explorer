@@ -20,7 +20,7 @@ router.beforeEach((to) => {
       }
     } 
 	else{
-		 return {path:'/Uptick%20Origin'}
+		 return {path:'/Jasper'}
 	}
 })
 
