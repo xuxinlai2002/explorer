@@ -1,7 +1,7 @@
 {
     "chain_id":"jasper_7000-1",
     "chain_name": "Jasper",
-    "api": "https://etherscan.geekzd.xyz/network",
+    "api": "https://rest.geekzd.xyz",
     "sdk_version": "v0.47.5",
     "coin_type": "60",
     "min_tx_fee": "40000",
